@@ -1,0 +1,370 @@
+/* Keep existing :root defaults or adjust as needed */
+:root {
+  font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
+  line-height: 1.5;
+  font-weight: 400;
+
+  color-scheme: light dark;
+  color: #fff;
+  /* Darker background */
+  background-color: #141414;
+
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+body {
+  margin: 0;
+  /* Remove flex centering for standard top-down layout */
+  /* display: flex; */
+  /* place-items: center; */
+  min-width: 320px;
+  min-height: 100vh;
+  /* Remove top padding if we add a distinct header later */
+  /* padding-top: 2rem; */
+  background-color: #141414; /* Ensure body background matches */
+}
+
+.App {
+  /* Remove max-width for full-width layout */
+  /* max-width: 1280px; */
+  margin: 0 auto;
+  padding: 0 2rem; /* Keep some side padding */
+  text-align: center;
+}
+
+h1 {
+  /* Style H1 like a logo or main title */
+  font-size: 2.5em;
+  line-height: 1.1;
+  margin-bottom: 1rem;
+  margin-top: 1.5rem;
+  color: #e50914; /* Netflix Red */
+  text-shadow: 1px 1px 2px rgba(0,0,0,0.5);
+  text-align: center; /* Center the main heading */
+}
+
+/* Row Title Styling */
+.movie-row-title {
+  font-size: 1.6em;
+  font-weight: bold;
+  color: #e5e5e5;
+  margin: 2rem 0 0.8rem 0; /* Space above/below title */
+  text-align: center; /* Center the row title */
+}
+
+/* Search Bar Styling */
+.search-container {
+  margin-bottom: 2rem;
+  text-align: center; /* Center search bar */
+}
+
+.search-input {
+  padding: 0.8em 1.2em;
+  width: 60%;
+  max-width: 400px;
+  font-size: 1em;
+  border-radius: 20px;
+  border: 1px solid #555;
+  background-color: #333;
+  color: #fff;
+  transition: all 0.3s ease;
+}
+
+.search-input::placeholder {
+  color: #888;
+}
+
+.search-input:focus {
+  outline: none;
+  border-color: #e50914;
+  box-shadow: 0 0 10px rgba(229, 9, 20, 0.5);
+  background-color: #444;
+}
+
+/* Enhance Button Style */
+.picker-button {
+  margin-bottom: 2.5rem; /* More space */
+  padding: 0.8em 1.5em; /* Bigger padding */
+  font-size: 1.1em; /* Slightly larger font */
+  font-weight: bold;
+  color: white;
+  background: #e50914;
+  border: none; /* Remove default border */
+  border-radius: 4px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  margin: 1.5rem 0 2rem 0;
+}
+
+.picker-button:hover {
+  background: #f40612;
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.4);
+  transform: translateY(-1px);
+}
+
+.picker-button:disabled {
+  background: #555;
+  cursor: not-allowed;
+  box-shadow: none;
+  transform: none;
+}
+
+/* Enhance Picked Movie Section */
+.picked-movie-section {
+  margin-bottom: 3rem; /* More space */
+  padding: 2rem;
+  border: 1px solid #444; /* Slightly lighter border */
+  border-radius: 12px; /* More rounded */
+  background-color: rgba(47, 47, 47, 0.7); /* Slightly transparent */
+  backdrop-filter: blur(5px); /* Frosted glass effect (if supported) */
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+}
+
+.picked-movie-section h2 {
+  margin-top: 0;
+  margin-bottom: 1.5rem; /* Space below heading */
+  color: #b0b0ff;
+  font-size: 1.8em;
+}
+
+/* Available Movies Title */
+h2 {
+  color: #d0d0d0; /* Slightly brighter */
+  font-size: 2em;
+  margin-bottom: 1.5rem;
+  text-shadow: 1px 1px 2px rgba(0,0,0,0.2); /* Add subtle shadow */
+}
+
+/* Movie List - Horizontal Flex Row */
+.movie-list {
+  display: flex; /* Use flexbox */
+  overflow-x: auto; /* Enable horizontal scroll */
+  overflow-y: hidden; /* Hide vertical scrollbar */
+  padding: 0 2rem 1.5rem 2rem; /* Add padding consistent with App */
+  gap: 1.5rem; /* Adjust gap for larger cards */
+  margin-top: 0;
+  /* Ensure container respects App padding */
+  box-sizing: border-box; 
+}
+
+/* Hide scrollbar visually (keeps functionality) */
+.movie-list::-webkit-scrollbar {
+  display: none; /* For Chrome, Safari, Opera */
+}
+.movie-list {
+  -ms-overflow-style: none;  /* IE and Edge */
+  scrollbar-width: none;  /* Firefox */
+}
+
+/* Enhance Movie Card for Larger Display */
+.movie-card {
+  border: none;
+  border-radius: 6px; /* Slightly more rounded */
+  background-color: #1a1a1a;
+  overflow: hidden;
+  transition: transform 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94), box-shadow 0.4s ease;
+  display: flex;
+  flex-direction: column;
+  flex-shrink: 0;
+  /* Make cards significantly wider */
+  width: 280px; 
+  cursor: pointer;
+  position: relative; /* Needed for potential overlay effects */
+}
+
+.movie-card:hover {
+  transform: scale(1.03); /* Slightly less scale */
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.6);
+  z-index: 10;
+}
+
+.movie-poster {
+  width: 100%;
+  /* Increase height significantly */
+  height: 400px; 
+  object-fit: cover;
+  display: block;
+}
+
+.movie-info {
+  padding: 1rem; /* More padding */
+  text-align: left;
+  background-color: rgba(26, 26, 26, 0.8); /* Semi-transparent info overlay? */
+  /* Optional: Position info absolutely over poster on hover */
+  /* position: absolute; */
+  /* bottom: 0; */
+  /* left: 0; */
+  /* right: 0; */
+  /* opacity: 0; */
+  /* transition: opacity 0.3s ease; */
+}
+
+/* .movie-card:hover .movie-info { */
+/*   opacity: 1; */
+/* } */
+
+.movie-card h3 {
+  margin: 0 0 0.4rem 0;
+  color: #fff;
+  font-size: 1.1em; /* Larger title */
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.movie-card p {
+  margin: 0.1rem 0;
+  color: #ccc;
+  font-size: 0.9em;
+}
+
+/* Adjust Selected Card Style */
+.movie-card.selected {
+  border: 3px solid #e50914; /* Thicker border */
+  box-shadow: 0 0 20px rgba(229, 9, 20, 0.7);
+  transform: scale(1.03); /* Keep consistent scale */
+}
+
+/* Style for loading/error messages */
+.loading-message, .error-message, .no-movies-message {
+  color: #ccc;
+  font-size: 1.2em;
+  margin-top: 3rem;
+}
+
+.error-message {
+  color: #ff8080; /* Softer red */
+  font-weight: bold;
+}
+
+/* Refined Movie Details Section Styling */
+.movie-details-section {
+  margin: 3rem auto;
+  padding: 2rem 2.5rem; /* More padding */
+  max-width: 800px; /* Wider details */
+  background-color: #181818;
+  border: 1px solid #333;
+  border-radius: 8px;
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.6);
+  text-align: left;
+  display: flex;
+  gap: 2.5rem; /* Increased gap */
+  position: relative; /* For potential absolute positioning inside */
+}
+
+.details-poster {
+  max-width: 220px; /* Slightly larger poster */
+  height: auto;
+  border-radius: 4px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+  flex-shrink: 0;
+  align-self: flex-start; /* Align poster to top */
+}
+
+.details-info {
+  flex-grow: 1;
+}
+
+.movie-details-section h2 {
+  color: #fff;
+  margin-top: 0;
+  margin-bottom: 0.5rem; /* Less space */
+  font-size: 2em; /* Larger title */
+}
+
+.details-meta {
+  color: #aaa;
+  font-size: 0.9em;
+  margin-bottom: 1.5rem;
+  display: flex;
+  gap: 1rem;
+}
+
+.details-plot {
+  color: #ddd;
+  font-size: 1em;
+  line-height: 1.6;
+  margin-bottom: 1.5rem;
+}
+
+.details-crew p {
+  color: #bbb;
+  font-size: 0.9em;
+  line-height: 1.5;
+  margin-bottom: 0.4rem;
+}
+
+.details-crew p strong {
+  color: #ddd;
+}
+
+.close-details-button {
+  position: absolute; /* Position top-right */
+  top: 1rem;
+  right: 1rem;
+  padding: 0.3em 0.8em;
+  font-size: 1.2em;
+  font-weight: bold;
+  color: #aaa;
+  background-color: transparent; /* No background */
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: color 0.3s ease;
+  line-height: 1;
+}
+
+.close-details-button:hover {
+  color: #fff;
+  background-color: rgba(255, 255, 255, 0.1); /* Slight hover background */
+}
+
+/* Style for loading spinner in details */
+.details-loading {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 200px; /* Ensure it takes space */
+  color: #aaa;
+  font-size: 1.2em;
+}
+
+/* Pagination Styling */
+.pagination-controls {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 2rem;
+  padding: 1rem 0;
+}
+
+.pagination-button {
+  background-color: #555;
+  color: #eee;
+  border: none;
+  padding: 0.5em 1em;
+  margin: 0 0.5rem;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+.pagination-button:hover:not(:disabled) {
+  background-color: #777;
+}
+
+.pagination-button:disabled {
+  background-color: #333;
+  color: #666;
+  cursor: not-allowed;
+}
+
+.page-info {
+  color: #ccc;
+  margin: 0 1rem;
+  font-weight: bold;
+}
